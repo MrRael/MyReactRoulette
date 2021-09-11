@@ -1,5 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Vote } from './Vote';
+import { VoteControl } from './VoteControl';
+import './VoteTable.scss';
 
 export class VoteTable extends Component {
     static displayName = VoteTable.name;
@@ -8,18 +10,35 @@ export class VoteTable extends Component {
         super(props);
         this.state = {
             votes: [
-                { index: 1, name: "test1" },
-                { index: 2, name: "test2" },
-                { index: 3, name: "test3" },
+                { index: 2, submitedBy: ["IV@N"], name: "test3", voteCount: 1 },
+                { index: 1, submitedBy: ["Гриша"], name: "test2", voteCount: 1 },
+                { index: 0, submitedBy: ["Serj", "Nikitos"], name: "test1", voteCount: 2 }
             ]
         };
     }    
 
-    render() {
+    onSubmit = (voteName) => {
+        const newVote = {
+            index: this.state.votes.length,
+            submitedBy: ["Test"],
+            name: voteName,
+            voteCount: 1
+        }
+        const newVotes = [newVote, ...this.state.votes];
+        this.setState({votes: newVotes});
+        console.log(voteName);
+    };
+
+    render = () => {
         const { votes } = this.state;
         return (
             <div>
-                {votes.map(vote => <Vote {...vote}/>)}
+                <div>
+                    <VoteControl onSubmit={this.onSubmit}></VoteControl>
+                </div>
+                <div className="main-vote-table">
+                    {votes.map((vote) => <Vote key={vote.index} {...vote}/>)}
+                </div>
             </div>
         );
     }

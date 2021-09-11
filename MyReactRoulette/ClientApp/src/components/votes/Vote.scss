@@ -1,0 +1,36 @@
+$color: rgb(23, 163, 65);
+
+.vote-row {
+    display: flex;
+    justify-content: space-between;    
+    align-items: center;
+    height: 50px;
+    margin: 15px 0px;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.295);
+    border-radius: 5px;
+    border: solid 2px $color;
+}
+.vote-message {
+    width: 100%;
+    padding-left: 10px;
+    vertical-align: middle;
+    justify-content: center;
+    
+}
+.vote-author {
+    padding-left: 10px;
+    color: rgb(126, 126, 126);
+}
+
+.vote-num-back {
+    color: rgb(255, 255, 255);
+    justify-content: center;
+    padding: 10px 10px;
+    height: 100%;    
+    background-color: $color;
+}
+
+.vote-count {
+    font-size: 15pt;
+    padding-right: 15px;
+}
