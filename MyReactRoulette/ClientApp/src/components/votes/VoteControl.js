@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Vote.scss'
+import './VoteControl.scss'
 
 export class VoteControl extends Component {
     constructor(props) {
@@ -14,14 +15,15 @@ export class VoteControl extends Component {
     onAddClick = () => {
         const { voteName } = this.state;
         this.props.onSubmit(voteName);
+        this.setState({voteName: ""});
     };
 
     render = () => {
         const {voteName} = this.state;
         return (
-            <div className="vote-row">
+            <div className="vote-control-div">
                 <input onChange={this.onTextChange} value={voteName} className="vote-control-text" type="text"></input>
-                <button onClick={() => this.onAddClick()}>Add</button>
+                <button className="vote-control-btn" onClick={() => this.onAddClick()}>Add</button>
             </div>
         );
     }
