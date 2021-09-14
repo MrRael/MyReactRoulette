@@ -17,18 +17,36 @@ export class VoteTable extends Component {
         };
     }    
 
-    onSubmit = (voteName) => {
-        const newVote = {
-            index: this.state.votes.length,
-            submitedBy: ["Test"],
-            name: voteName,
-            voteCount: 1
+    onSubmit = (voteName, submitedBy) => {
+        if (this.state.votes.find(x => x.name === voteName)) {
+            this.setState((state) => {
+                const votes = state.votes.map((vote) =>                
+                    vote.name === voteName ? {...vote, submitedBy: [...vote.submitedBy, submitedBy], voteCount: vote.voteCount + 1} : vote
+                );            
+                return { votes };
+            });
+        } else {
+            const newVote = {
+                index: this.state.votes.length,
+                submitedBy: [submitedBy],
+                name: voteName,
+                voteCount: 1
+            }
+            const newVotes = [newVote, ...this.state.votes];
+            this.setState({votes: newVotes});
         }
-        const newVotes = [newVote, ...this.state.votes];
-        this.setState({votes: newVotes});
-        console.log(voteName);
+        console.log(voteName, submitedBy);
     };
-
+    
+    onDeleteVote = (index) => {
+        const newVotes = this.state.votes.filter(x => x.index !== index);
+        var newIndex = 0;        
+        newVotes.forEach(x => {
+            x.index = newVotes.length - ++newIndex;
+        });
+        this.setState({votes: newVotes});
+    };
+    
     render = () => {
         const { votes } = this.state;
         return (
@@ -37,7 +55,7 @@ export class VoteTable extends Component {
                     <VoteControl onSubmit={this.onSubmit}></VoteControl>
                 </div>
                 <div className="main-vote-table">
-                    {votes.map((vote) => <Vote key={vote.index} {...vote}/>)}
+                    {votes.map((vote) => <Vote onDeleteVote={this.onDeleteVote} key={vote.index} {...vote}/>)}
                 </div>
             </div>
         );

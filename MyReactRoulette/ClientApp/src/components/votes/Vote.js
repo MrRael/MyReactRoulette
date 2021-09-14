@@ -2,6 +2,12 @@
 import './Vote.scss';
 
 export class Vote extends Component {
+
+    onDeleteClick = () => {
+        const { index } = this.props;
+        this.props.onDeleteVote(index);
+    };
+
     render = () => {
         const { index, submitedBy, name, voteCount } = this.props;
         return (
@@ -15,7 +21,7 @@ export class Vote extends Component {
                     <span className="vote-count">{voteCount}</span>
                 </div>
                 <div>
-                    <div className="vote-delete">X</div>
+                    <div className="vote-delete" onClick={() => this.onDeleteClick()}>X</div>
                 </div>
             </div>
         );
