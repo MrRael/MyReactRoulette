@@ -46,6 +46,24 @@ export class VoteTable extends Component {
         });
         this.setState({votes: newVotes});
     };
+
+    onDeleteAuthorVote = (index, author) => {
+        const vote = this.state.votes.find(x => x.index === index);
+        const newSubmitedBy = vote.submitedBy.filter(x => x !== author);
+        if (newSubmitedBy.length > 0) {
+            const newVotes = this.state.votes.map((x, i) => {
+                if (x.index === index) { 
+                    x.submitedBy = newSubmitedBy;
+                    x.voteCount = newSubmitedBy.length;
+                }
+                return x;
+            });
+            this.setState({ votes: newVotes });
+        } else {
+            this.onDeleteVote(index);
+        }
+        
+    };
     
     render = () => {
         const { votes } = this.state;
@@ -55,7 +73,7 @@ export class VoteTable extends Component {
                     <VoteControl onSubmit={this.onSubmit}></VoteControl>
                 </div>
                 <div className="main-vote-table">
-                    {votes.map((vote) => <Vote onDeleteVote={this.onDeleteVote} key={vote.index} {...vote}/>)}
+                    {votes.map((vote) => <Vote onDeleteAuthorVote={this.onDeleteAuthorVote} onDeleteVote={this.onDeleteVote} key={vote.index} {...vote}/>)}
                 </div>
             </div>
         );

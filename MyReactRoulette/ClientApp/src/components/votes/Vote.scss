@@ -12,6 +12,7 @@
 .vote-delete {
     margin-left: 10px;
     visibility: hidden;
+    cursor: pointer;
 }
 .vote-row {
     display: flex;
@@ -32,8 +33,18 @@
     
 }
 .vote-author {
-    padding-left: 10px;
+    margin-left: 10px;
     color: rgb(126, 126, 126);
+}
+.vote-author:hover {
+    .vote-author-delete {
+        visibility: unset;
+    }
+}
+.vote-author-delete {
+    margin-left: 5px;
+    cursor: pointer;
+    visibility: collapse;
 }
 
 .vote-num-back {

@@ -3,9 +3,15 @@ import './Vote.scss';
 
 export class Vote extends Component {
 
-    onDeleteClick = () => {
+    onDeleteVoteClick = () => {
         const { index } = this.props;
         this.props.onDeleteVote(index);
+    };
+
+    onDeleteAuthorClick = (event, indexAuthor) => {
+        debugger;
+        const { index, submitedBy } = this.props;
+        this.props.onDeleteAuthorVote(index, submitedBy[indexAuthor]);
     };
 
     render = () => {
@@ -16,12 +22,14 @@ export class Vote extends Component {
                     <div className="vote-num-back"><span className="vote-num">{index}</span></div>
                     <div className="vote-message">
                         <span className="vote-name">{name}</span>
-                        <span className="vote-author">{submitedBy.join(', ')}</span>
+                        <span className="vote-submited-by">
+                            {submitedBy.map((author, index) => <span className="vote-author">{author}<span onClick={(event) => this.onDeleteAuthorClick(event, index)} className="vote-author-delete">X</span></span>)}
+                        </span>
                     </div>
                     <span className="vote-count">{voteCount}</span>
                 </div>
                 <div>
-                    <div className="vote-delete" onClick={() => this.onDeleteClick()}>X</div>
+                    <div className="vote-delete" onClick={() => this.onDeleteVoteClick()}>X</div>
                 </div>
             </div>
         );
