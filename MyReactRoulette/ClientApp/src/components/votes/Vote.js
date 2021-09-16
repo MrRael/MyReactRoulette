@@ -9,7 +9,6 @@ export class Vote extends Component {
     };
 
     onDeleteAuthorClick = (event, indexAuthor) => {
-        debugger;
         const { index, submitedBy } = this.props;
         this.props.onDeleteAuthorVote(index, submitedBy[indexAuthor]);
     };

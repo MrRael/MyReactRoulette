@@ -1,6 +1,7 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 import { Vote } from './Vote';
 import { VoteControl } from './VoteControl';
+import { VoteLine } from './VoteLine';
 import './VoteTable.scss';
 
 export class VoteTable extends Component {
@@ -9,6 +10,7 @@ export class VoteTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isStarted: false,
             votes: [
                 { index: 2, submitedBy: ["IV@N"], name: "test3", voteCount: 1 },
                 { index: 1, submitedBy: ["Гриша"], name: "test2", voteCount: 1 },
@@ -64,11 +66,17 @@ export class VoteTable extends Component {
         }
         
     };
+
+    onButtonClick = () => {
+        this.setState({isStarted: true});
+    };
     
     render = () => {
-        const { votes } = this.state;
+        const { isStarted, votes } = this.state;
         return (
             <div>
+                {isStarted ? <VoteLine voteData={votes}/> : <Fragment/>}
+                <button onClick={this.onButtonClick}>Запустить голосование</button>
                 <div>
                     <VoteControl onSubmit={this.onSubmit}></VoteControl>
                 </div>
